@@ -1,1 +1,45 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #2563eb;
+  --color-primary-foreground: #f8fafc;
+  --color-secondary: #0ea5e9;
+  --color-secondary-foreground: #0f172a;
+  --color-muted: #f1f5f9;
+  --color-muted-foreground: #475569;
+  --font-sans: "Cairo", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-slate-100 text-slate-900 transition-colors;
+  }
+
+  a {
+    @apply text-primary underline-offset-4 transition hover:text-primary/80;
+  }
+
+  ::selection {
+    @apply bg-primary/80 text-white;
+  }
+}
+
+@layer utilities {
+  .shadow-card {
+    box-shadow: 0 20px 25px -15px rgba(15, 23, 42, 0.25);
+  }
+}
+
+@page {
+  margin: 18mm;
+}
+
+@media print {
+  body {
+    @apply bg-white text-black;
+  }
+}

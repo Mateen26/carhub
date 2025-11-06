@@ -1,0 +1,109 @@
+{
+  "app": {
+    "brand": "Anas Comprehensive Check-up Center",
+    "tagline": "Computerized Check-up for All Cars",
+    "nav": {
+      "dashboard": "Dashboard",
+      "inspection": "Inspection Form"
+    },
+    "actions": {
+      "newInspection": "New Inspection",
+      "confirmSave": "Confirm & Save",
+      "print": "Print / Export",
+      "close": "Close",
+      "cancel": "Cancel"
+    }
+  },
+  "language": {
+    "switcherLabel": "Language",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "dashboard": {
+    "title": "Anas Comprehensive Check-up Center",
+    "subtitle": "Vehicle Inspection Overview",
+    "cards": {
+      "inspectionsToday": "Total Inspections Today",
+      "pendingReports": "Pending Reports",
+      "inProgress": "Vehicles in Progress"
+    },
+    "table": {
+      "title": "Recent Inspections",
+      "columns": {
+        "clientName": "Client Name",
+        "carType": "Car Type",
+        "plate": "Plate Number",
+        "date": "Date",
+        "status": "Status"
+      },
+      "empty": "No inspections recorded yet."
+    }
+  },
+  "inspection": {
+    "title": "Inspection Form",
+    "subtitle": "Complete the checklist to generate a detailed report.",
+    "sections": {
+      "customer": "Customer & Vehicle Info",
+      "checkupType": "Check-up Type",
+      "engine": "Engine",
+      "gearboxBrakes": "Gearbox & Brakes",
+      "electrical": "Electrical",
+      "undercarriage": "Undercarriage",
+      "body": "Body",
+      "chassis4x4": "Chassis & 4x4",
+      "notes": "Notes & Summary"
+    },
+    "fields": {
+      "clientName": "Client Name",
+      "mobileNumber": "Mobile Number",
+      "carType": "Car Type",
+      "model": "Model",
+      "color": "Color",
+      "plateNumber": "Plate Number",
+      "vin": "Chassis (VIN)",
+      "odometer": "Odometer Reading",
+      "date": "Date",
+      "crNumber": "C.R Number",
+      "vatNumber": "VAT Number",
+      "notes": "General Notes",
+      "notesPlaceholder": "Add any additional observations or notes here..."
+    },
+    "checkupTypes": {
+      "engine": "Engine",
+      "gearbox": "Gearbox (Transmission)",
+      "both": "Engine & Gearbox"
+    },
+    "helperText": {
+      "checkupType": "Select one option"
+    },
+    "legal": {
+      "stateOnly": "The inspection reflects the vehicle's current state only and is not responsible for faults that occur during or after inspection.",
+      "exclusions": "Fiber, rubber parts, and sticker areas are excluded from the body inspection.",
+      "specialist": "Final confirmation must be reviewed by a body repair specialist."
+    },
+    "actions": {
+      "review": "Review Summary",
+      "reset": "Reset Form"
+    }
+  },
+  "summary": {
+    "title": "Inspection Summary",
+    "customerDetails": "Customer Details",
+    "selectedIssues": "Selected Issues",
+    "noIssues": "No issues selected",
+    "notes": "Notes",
+    "printHint": "Use your browser's print dialog to export or print this summary."
+  },
+  "statuses": {
+    "completed": "Completed",
+    "pending": "Pending",
+    "inProgress": "In Progress"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidMobile": "Please enter a valid mobile number",
+    "minLength": "Minimum length not met",
+    "selectOne": "Please select one option"
+  }
+}
+
