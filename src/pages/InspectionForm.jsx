@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { HiCheck } from 'react-icons/hi2'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
 import Card from '../components/Card'
@@ -113,12 +114,13 @@ const InspectionForm = () => {
   } = useForm({
     defaultValues,
     mode: 'onBlur',
+    shouldUnregister: false,
   })
 
   const [activeSection, setActiveSection] = useState(SECTION_DEFINITIONS[0].id)
   const [isSummaryOpen, setIsSummaryOpen] = useState(false)
   const [submittedData, setSubmittedData] = useState(null)
-  const sectionRefs = useRef({})
+  const contentRef = useRef(null)
 
   const onSubmit = (values) => {
     setSubmittedData(values)
@@ -136,6 +138,22 @@ const InspectionForm = () => {
     [t]
   )
 
+  const mobileNavButtonClasses = (isActive) =>
+    cn(
+      'inline-flex min-h-[50px] min-w-[9rem] snap-start items-center justify-center rounded-full border px-5 py-2.5 text-center text-sm font-semibold leading-snug transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+      isActive
+        ? 'border-transparent bg-primary text-white shadow'
+        : 'border-slate-200 bg-white text-slate-600 hover:text-primary'
+    )
+
+  const desktopNavButtonClasses = (isActive) =>
+    cn(
+      'flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+      isActive
+        ? 'border-transparent bg-primary text-white ring-1 ring-primary/40 shadow'
+        : 'border-slate-200 bg-white text-slate-600 hover:text-primary'
+    )
+
   const sectionList = useMemo(
     () =>
       SECTION_DEFINITIONS.map((section) => ({
@@ -145,40 +163,59 @@ const InspectionForm = () => {
     [t]
   )
 
-  useEffect(() => {
-    const observers = []
-    const observerOptions = {
-      root: null,
-      threshold: 0.2,
-      rootMargin: '-120px 0px -60%',
+  const isSectionCompleted = (sectionId) => {
+    const formData = watchAllFields
+
+    if (sectionId === 'customer') {
+      const customerFields = [
+        'clientName',
+        'mobileNumber',
+        'carType',
+        'model',
+        'color',
+        'plateNumber',
+        'vin',
+        'odometer',
+        'date',
+      ]
+      return customerFields.some((field) => {
+        const value = formData[field]
+        return value !== undefined && value !== null && value !== ''
+      })
     }
 
-    sectionList.forEach((section) => {
-      const element = sectionRefs.current[section.id]
-      if (!element) return
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(section.id)
-          }
-        })
-      }, observerOptions)
-
-      observer.observe(element)
-      observers.push({ observer, element })
-    })
-
-    return () => {
-      observers.forEach(({ observer, element }) => observer.unobserve(element))
+    if (sectionId === 'checkupType') {
+      return formData.checkupType && formData.checkupType !== ''
     }
-  }, [sectionList])
 
-  const handleScrollToSection = (sectionId) => {
-    const element = sectionRefs.current[sectionId]
-    if (!element) return
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (checklistSections.has(sectionId)) {
+      const selectedItems = formData.checklist?.[sectionId] || []
+      return Array.isArray(selectedItems) && selectedItems.length > 0
+    }
+
+    if (sectionId === 'notes') {
+      return formData.notes && formData.notes.trim() !== ''
+    }
+
+    return false
+  }
+
+  const handleSectionSelect = (sectionId) => {
     setActiveSection(sectionId)
+    if (typeof window !== 'undefined') {
+      requestAnimationFrame(() => {
+        if (window.innerWidth < 1024) {
+          // Mobile: scroll to form container
+          contentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } else {
+          // Desktop: scroll to the specific section card
+          const sectionElement = document.getElementById(sectionId)
+          if (sectionElement) {
+            sectionElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          }
+        }
+      })
+    }
   }
 
   return (
@@ -193,59 +230,68 @@ const InspectionForm = () => {
       </div>
 
       <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[280px,1fr] lg:items-start">
-        <nav className="-mx-4 overflow-x-auto border-b border-slate-200/60 pb-4 lg:mx-0 lg:border-b-0 lg:pr-6">
-          <div className="flex items-center gap-2 lg:hidden">
-            {sectionList.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => handleScrollToSection(section.id)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                  activeSection === section.id
-                    ? 'bg-primary text-primary-foreground shadow'
-                    : 'bg-white text-slate-600 ring-1 ring-slate-200'
-                }`}
-              >
-                {section.label}
-              </button>
-            ))}
+        <nav className="-mx-4 border-b border-slate-200/60 pb-4 lg:mx-0 lg:border-b-0 lg:pr-6">
+          <div className="flex items-center gap-3 overflow-x-auto px-4 lg:hidden snap-x snap-mandatory">
+            {sectionList.map((section) => {
+              const isActive = activeSection === section.id
+              const isCompleted = isSectionCompleted(section.id)
+              return (
+                <button
+                  key={section.id}
+                  type="button"
+                  onClick={() => handleSectionSelect(section.id)}
+                  className={mobileNavButtonClasses(isActive)}
+                >
+                  <span className="flex items-center gap-2">
+                    {isCompleted && (
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded bg-emerald-500">
+                        <HiCheck className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                      </span>
+                    )}
+                    {section.label}
+                  </span>
+                </button>
+              )
+            })}
           </div>
 
           <div className="sticky top-28 hidden lg:flex lg:flex-col lg:gap-2">
-            {sectionList.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => handleScrollToSection(section.id)}
-                className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition ${
-                  activeSection === section.id
-                    ? 'bg-primary/10 text-primary ring-1 ring-primary/40'
-                    : 'bg-white text-slate-600 ring-1 ring-slate-200 hover:text-primary'
-                }`}
-              >
-                <span>{section.label}</span>
-                <span className="text-xs font-medium text-slate-400">
-                  {checklistSections.has(section.id) && Array.isArray(watchAllFields?.checklist?.[section.id])
-                    ? watchAllFields.checklist[section.id].length
-                    : ''}
-                </span>
-              </button>
-            ))}
+            {sectionList.map((section) => {
+              const isActive = activeSection === section.id
+              const isCompleted = isSectionCompleted(section.id)
+              return (
+                <button
+                  key={section.id}
+                  type="button"
+                  onClick={() => handleSectionSelect(section.id)}
+                  className={desktopNavButtonClasses(isActive)}
+                >
+                  <span className="flex items-center gap-2">
+                    {isCompleted && (
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded bg-emerald-500">
+                        <HiCheck className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                      </span>
+                    )}
+                    {section.label}
+                  </span>
+                  <span className={cn(
+                    'text-xs font-medium',
+                    isActive ? 'text-white/80' : 'text-slate-400'
+                  )}>
+                    {checklistSections.has(section.id) && Array.isArray(watchAllFields?.checklist?.[section.id])
+                      ? watchAllFields.checklist[section.id].length
+                      : ''}
+                  </span>
+                </button>
+              )
+            })}
           </div>
         </nav>
 
-        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-          {sectionList.map((section) => (
-            <Card
-              key={section.id}
-              ref={(node) => {
-                if (node) {
-                  sectionRefs.current[section.id] = node
-                }
-              }}
-              className="p-6"
-              id={section.id}
-            >
+        <form ref={contentRef} className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
+          {sectionList.map((section) =>
+            section.id === activeSection ? (
+              <Card key={section.id} className="p-6" id={section.id}>
               <SectionTitle title={section.label} />
               {section.id === 'customer' && (
                 <div className="mt-6 flex flex-col gap-6">
@@ -338,7 +384,6 @@ const InspectionForm = () => {
                       register={register}
                       error={errors.crNumber}
                       options={{ required: validationMessages.required }}
-                      defaultValue={CENTER_INFO.crNumber}
                     />
                     <FormInput
                       name="vatNumber"
@@ -346,7 +391,6 @@ const InspectionForm = () => {
                       register={register}
                       error={errors.vatNumber}
                       options={{ required: validationMessages.required }}
-                      defaultValue={CENTER_INFO.vatNumber}
                     />
                   </div>
                 </div>
@@ -442,8 +486,9 @@ const InspectionForm = () => {
                   </div>
                 </div>
               )}
-            </Card>
-          ))}
+              </Card>
+            ) : null
+          )}
 
           <div className="flex flex-col gap-3 border-t border-slate-200 pt-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
