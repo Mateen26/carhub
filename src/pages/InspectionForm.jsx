@@ -15,6 +15,8 @@ import {
 } from '../config/constants'
 import { checklist } from '../data/checklist'
 import { cn } from '../lib/utils'
+import { createInspection } from '../services/api'
+import { transformInspectionData } from '../utils/transformInspectionData'
 
 const SECTION_DEFINITIONS = [
   { id: 'customer', translationKey: 'inspection.sections.customer' },
@@ -120,11 +122,39 @@ const InspectionForm = () => {
   const [activeSection, setActiveSection] = useState(SECTION_DEFINITIONS[0].id)
   const [isSummaryOpen, setIsSummaryOpen] = useState(false)
   const [submittedData, setSubmittedData] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState(null)
   const contentRef = useRef(null)
 
   const onSubmit = (values) => {
     setSubmittedData(values)
+    setSubmitError(null)
     setIsSummaryOpen(true)
+  }
+
+  const handleConfirm = async () => {
+    if (!submittedData) return
+
+    setIsSubmitting(true)
+    setSubmitError(null)
+
+    try {
+      // Transform form data to API format
+      const apiPayload = transformInspectionData(submittedData)
+      
+      // Submit to API
+      await createInspection(apiPayload)
+      
+      // Success - close modal and reset form
+      setIsSummaryOpen(false)
+      reset(defaultValues)
+      setSubmittedData(null)
+    } catch (error) {
+      // Handle error
+      setSubmitError(error.message || 'Failed to submit inspection. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const watchAllFields = watch()
@@ -512,13 +542,17 @@ const InspectionForm = () => {
 
       <SummaryModal
         open={isSummaryOpen}
-        onOpenChange={setIsSummaryOpen}
-        data={submittedData}
-        onConfirm={() => {
-          console.log('Inspection confirmed', submittedData)
-          setIsSummaryOpen(false)
+        onOpenChange={(open) => {
+          setIsSummaryOpen(open)
+          if (!open) {
+            setSubmitError(null)
+          }
         }}
+        data={submittedData}
+        onConfirm={handleConfirm}
         onPrint={() => window.print()}
+        isSubmitting={isSubmitting}
+        submitError={submitError}
       />
     </div>
   )
