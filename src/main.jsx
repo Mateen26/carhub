@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import App from './App.jsx'
 import { LanguageProvider } from './contexts/LanguageContext.jsx'
+import { ThemeProvider } from './contexts/ThemeContext.jsx'
 import './i18n'
 import './index.css'
 
@@ -11,7 +12,9 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <LanguageProvider>
-        <App />
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <App />
+        </ThemeProvider>
       </LanguageProvider>
     </BrowserRouter>
   </StrictMode>

@@ -99,18 +99,18 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm print:hidden" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 flex max-h-[90vh] w-[95vw] max-w-4xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-3xl border border-slate-200 bg-white shadow-2xl print:static print:m-0 print:w-auto print:max-h-none print:max-w-none print:translate-x-0 print:translate-y-0 print:rounded-none print:border-0 print:bg-white print:shadow-none">
-          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-slate-200 p-6 print:border-b-0">
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm print:hidden dark:bg-black/80" />
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 flex max-h-[90vh] w-[95vw] max-w-4xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-3xl border border-slate-200 bg-white shadow-2xl print:static print:m-0 print:w-auto print:max-h-none print:max-w-none print:translate-x-0 print:translate-y-0 print:rounded-none print:border-0 print:bg-white print:shadow-none dark:border-slate-800 dark:bg-[#121212] dark:shadow-black/50">
+          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-slate-200 p-6 print:border-b-0 dark:border-slate-800">
             <div className="flex-1">
-              <Dialog.Title className="text-2xl font-semibold text-slate-900">
+              <Dialog.Title className="text-2xl font-semibold text-slate-900 dark:text-white">
                 {t('summary.title')}
               </Dialog.Title>
-              <Dialog.Description className="mt-1 text-sm text-slate-500">
+              <Dialog.Description className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Inspection ID: {inspection.id.slice(0, 8)}...
               </Dialog.Description>
             </div>
-            <Dialog.Close className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:text-primary print:hidden">
+            <Dialog.Close className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:text-primary print:hidden dark:border-slate-700 dark:text-slate-400">
               <HiOutlineXMark className="h-5 w-5" />
             </Dialog.Close>
           </div>
@@ -118,20 +118,20 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
           <div className="flex-1 overflow-y-auto px-6 py-6 print:overflow-visible print:p-0">
             <div className="grid gap-6 print:mt-4">
               {/* Customer Information */}
-              <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:border print:bg-white">
+              <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:border print:bg-white dark:border-slate-800 dark:bg-[#121212]">
                 <div className="mb-4 flex items-center gap-2">
-                  <HiOutlineUser className="h-5 w-5 text-slate-600" />
-                  <h3 className="text-lg font-semibold text-slate-900">
+                  <HiOutlineUser className="h-5 w-5 text-slate-600 dark:text-slate-400" />
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
                     {t('summary.customerDetails')}
                   </h3>
                 </div>
                 <div className="grid gap-3 sm:grid-cols-2">
                   {customerFields.map((field) => (
                     <div key={field.key} className="flex flex-col gap-1">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {field.label}
                       </span>
-                      <span className="text-sm font-medium text-slate-800">
+                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {field.value || '—'}
                       </span>
                     </div>
@@ -140,17 +140,17 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
               </section>
 
               {/* Vehicle Information */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none">
-                <h3 className="mb-4 text-lg font-semibold text-slate-900">
+              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none dark:border-slate-800 dark:bg-[#121212]">
+                <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
                   Vehicle Information
                 </h3>
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {vehicleFields.map((field) => (
                     <div key={field.key} className="flex flex-col gap-1">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {field.label}
                       </span>
-                      <span className="text-sm font-medium text-slate-800">
+                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {field.value || '—'}
                       </span>
                     </div>
@@ -159,42 +159,42 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
               </section>
 
               {/* Inspection Details */}
-              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none">
-                <h3 className="mb-4 text-lg font-semibold text-slate-900">
+              <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none dark:border-slate-800 dark:bg-[#121212]">
+                <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
                   Inspection Details
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       {t('inspection.sections.checkupType')}
                     </span>
-                    <span className="text-sm font-medium text-slate-800">
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                       {t(checkupLabel)}
                     </span>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       {t('inspection.fields.date')}
                     </span>
-                    <span className="text-sm font-medium text-slate-800">
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                       {dateFormatter.format(new Date(inspection.inspectionDate))}
                     </span>
                   </div>
                   {inspection.odometerReading && (
                     <div className="flex flex-col gap-1">
-                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {t('inspection.fields.odometer')}
                       </span>
-                      <span className="text-sm font-medium text-slate-800">
+                      <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                         {inspection.odometerReading.toLocaleString(locale)}
                       </span>
                     </div>
                   )}
                   <div className="flex flex-col gap-1">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       Created At
                     </span>
-                    <span className="text-sm font-medium text-slate-800">
+                    <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
                       {dateTimeFormatter.format(new Date(inspection.createdAt))}
                     </span>
                   </div>
@@ -203,21 +203,21 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
 
               {/* Findings */}
               {sectionSummaries.length > 0 ? (
-                <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none">
-                  <h3 className="mb-4 text-lg font-semibold text-slate-900">
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none dark:border-slate-800 dark:bg-[#121212]">
+                  <h3 className="mb-4 text-lg font-semibold text-slate-900 dark:text-white">
                     {t('summary.selectedIssues')}
                   </h3>
                   <div className="space-y-4">
                     {sectionSummaries.map((section) => (
                       <div key={section.id} className="space-y-2">
-                        <h4 className="text-sm font-semibold text-slate-700">
+                        <h4 className="text-sm font-semibold text-slate-700 dark:text-slate-300">
                           {section.title}
                         </h4>
                         <ul className="grid gap-2 sm:grid-cols-2">
                           {section.items.map((item, index) => (
                             <li
                               key={`${section.id}-${index}`}
-                              className="flex items-center gap-2 rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700"
+                              className="flex items-center gap-2 rounded-xl bg-slate-100 px-3 py-2 text-sm text-slate-700 dark:bg-slate-800 dark:text-slate-300"
                             >
                               <span className="inline-flex h-2 w-2 shrink-0 rounded-full bg-primary" />
                               <span>{item}</span>
@@ -229,8 +229,8 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
                   </div>
                 </section>
               ) : (
-                <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none">
-                  <p className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500">
+                <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm print:border print:shadow-none dark:border-slate-800 dark:bg-[#121212]">
+                  <p className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-4 text-sm text-slate-500 dark:border-slate-700 dark:bg-[#121212] dark:text-slate-400">
                     {t('summary.noIssues')}
                   </p>
                 </section>
@@ -238,11 +238,11 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
 
               {/* Notes */}
               {inspection.generalNotes && (
-                <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:border print:bg-white">
-                  <h3 className="mb-3 text-lg font-semibold text-slate-900">
+                <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:border print:bg-white dark:border-slate-800 dark:bg-[#121212]">
+                  <h3 className="mb-3 text-lg font-semibold text-slate-900 dark:text-white">
                     {t('summary.notes')}
                   </h3>
-                  <p className="whitespace-pre-wrap text-sm text-slate-700">
+                  <p className="whitespace-pre-wrap text-sm text-slate-700 dark:text-slate-300">
                     {inspection.generalNotes}
                   </p>
                 </section>
@@ -250,12 +250,12 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
             </div>
           </div>
 
-          <div className="shrink-0 border-t border-slate-200 p-6 print:border-t-0">
+          <div className="shrink-0 border-t border-slate-200 p-6 print:border-t-0 dark:border-slate-800">
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end print:hidden">
               <button
                 type="button"
                 onClick={() => window.print()}
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-400"
               >
                 <HiOutlinePrinter className="h-5 w-5" />
                 {t('app.actions.print')}

@@ -122,10 +122,10 @@ const Dashboard = () => {
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
+          <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
             {t('dashboard.title')}
           </h1>
-          <p className="mt-1 text-base text-slate-600">
+          <p className="mt-1 text-base text-slate-600 dark:text-slate-400">
             {t('dashboard.subtitle')}
           </p>
         </div>
@@ -162,7 +162,7 @@ const Dashboard = () => {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
               />
             </svg>
-            <p className="text-sm text-slate-500">Loading inspections...</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400">Loading inspections...</p>
           </div>
         </div>
       ) : error ? (
@@ -184,8 +184,8 @@ const Dashboard = () => {
               </svg>
             </div>
             <div>
-              <h3 className="text-sm font-semibold text-slate-900">Error loading inspections</h3>
-              <p className="mt-1 text-sm text-slate-500">{error}</p>
+              <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Error loading inspections</h3>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{error}</p>
             </div>
             <button
               type="button"
@@ -199,7 +199,7 @@ const Dashboard = () => {
       ) : inspections.length === 0 ? (
         <Card className="p-12">
           <div className="flex flex-col items-center gap-3 text-center">
-            <div className="rounded-full bg-slate-100 p-4">
+            <div className="rounded-full bg-slate-100 p-4 dark:bg-slate-800">
               <svg
                 className="h-8 w-8 text-slate-400"
                 fill="none"
@@ -214,8 +214,8 @@ const Dashboard = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-slate-900">No inspections found</h3>
-            <p className="text-sm text-slate-500">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">No inspections found</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
               Get started by creating your first inspection report.
             </p>
             <button
@@ -238,13 +238,13 @@ const Dashboard = () => {
               placeholder="Search by name, phone, plate number, car type..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-12 w-full rounded-xl border border-slate-200 bg-white pl-12 pr-4 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="h-12 w-full rounded-xl border border-slate-300 bg-white pl-12 pr-4 text-sm text-slate-700 shadow-sm transition placeholder-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-800 dark:bg-[#121212] dark:placeholder-slate-500 dark:text-slate-200 dark:focus:ring-primary/40"
             />
           </div>
 
           {/* Results Count */}
           {searchQuery && (
-            <p className="text-sm text-slate-600">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               Found {filteredInspections.length} inspection{filteredInspections.length !== 1 ? 's' : ''}
             </p>
           )}
@@ -253,11 +253,11 @@ const Dashboard = () => {
           {filteredInspections.length === 0 ? (
             <Card className="p-12">
               <div className="flex flex-col items-center gap-3 text-center">
-                <div className="rounded-full bg-slate-100 p-4">
+                <div className="rounded-full bg-slate-100 p-4 dark:bg-slate-800">
                   <HiOutlineMagnifyingGlass className="h-8 w-8 text-slate-400" />
                 </div>
-                <h3 className="text-lg font-semibold text-slate-900">No inspections found</h3>
-                <p className="text-sm text-slate-500">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">No inspections found</h3>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
                   {searchQuery
                     ? 'Try adjusting your search terms.'
                     : 'Get started by creating your first inspection report.'}
@@ -288,10 +288,10 @@ const Dashboard = () => {
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold text-slate-900 truncate">
+                    <h3 className="text-lg font-semibold text-slate-900 truncate dark:text-white">
                       {customer.name}
                     </h3>
-                    <p className="mt-1 flex items-center gap-2 text-sm text-slate-500">
+                    <p className="mt-1 flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
                       <HiOutlinePhone className="h-4 w-4 shrink-0" />
                       <span className="truncate">{customer.mobileNumber}</span>
                     </p>
@@ -304,27 +304,27 @@ const Dashboard = () => {
                 </div>
 
                 {/* Vehicle Info */}
-                <div className="space-y-2 rounded-xl bg-slate-50 p-3">
+                <div className="space-y-2 rounded-xl bg-slate-50 p-3 dark:bg-[#121212]">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       {t('inspection.fields.carType')}
                     </span>
-                    <span className="text-sm font-semibold text-slate-900">
+                    <span className="text-sm font-semibold text-slate-900 dark:text-slate-200">
                       {vehicle.carType} {vehicle.model && vehicle.model}
                     </span>
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                    <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                       {t('inspection.fields.plateNumber')}
                     </span>
-                    <span className="text-sm font-semibold text-slate-900">{vehicle.plateNumber}</span>
+                    <span className="text-sm font-semibold text-slate-900 dark:text-slate-200">{vehicle.plateNumber}</span>
                   </div>
                   {vehicle.color && (
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-medium uppercase tracking-wide text-slate-500">
+                      <span className="text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                         {t('inspection.fields.color')}
                       </span>
-                      <span className="text-sm font-semibold text-slate-900 capitalize">
+                      <span className="text-sm font-semibold text-slate-900 capitalize dark:text-slate-200">
                         {vehicle.color}
                       </span>
                     </div>
@@ -334,41 +334,41 @@ const Dashboard = () => {
                 {/* Inspection Details */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2 text-sm">
-                    <span className="flex items-center gap-1.5 text-slate-500">
+                    <span className="flex items-center gap-1.5 text-slate-500 dark:text-slate-400">
                       <HiOutlineCalendar className="h-4 w-4" />
                       {t('inspection.fields.date')}
                     </span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-200">
                       {dateFormatter.format(inspectionDate)}
                     </span>
                   </div>
                   {inspection.odometerReading && (
                     <div className="flex items-center justify-between gap-2 text-sm">
-                      <span className="text-slate-500">{t('inspection.fields.odometer')}</span>
-                      <span className="font-semibold text-slate-900">
+                      <span className="text-slate-500 dark:text-slate-400">{t('inspection.fields.odometer')}</span>
+                      <span className="font-semibold text-slate-900 dark:text-slate-200">
                         {inspection.odometerReading.toLocaleString(locale)}
                       </span>
                     </div>
                   )}
                   {findingsCount > 0 && (
                     <div className="flex items-center justify-between gap-2 text-sm">
-                      <span className="text-slate-500">Issues Found</span>
-                      <span className="font-semibold text-red-600">{findingsCount}</span>
+                      <span className="text-slate-500 dark:text-slate-400">Issues Found</span>
+                      <span className="font-semibold text-red-600 dark:text-red-500">{findingsCount}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Notes Preview */}
                 {inspection.generalNotes && (
-                  <div className="rounded-lg border border-slate-200 bg-white p-3">
-                    <p className="line-clamp-2 text-xs text-slate-600">
+                  <div className="rounded-lg border border-slate-300 bg-white p-3 dark:border-slate-800 dark:bg-[#121212]">
+                    <p className="line-clamp-2 text-xs text-slate-600 dark:text-slate-400">
                       {inspection.generalNotes}
                     </p>
                   </div>
                 )}
 
                 {/* Footer */}
-                <div className="flex items-center justify-between border-t border-slate-200 pt-3">
+                <div className="flex items-center justify-between border-t border-slate-300 pt-3 dark:border-slate-800">
                   <span className="text-xs text-slate-400">
                     {timeFormatter.format(createdAt)}
                   </span>
@@ -390,8 +390,8 @@ const Dashboard = () => {
 
               {/* Pagination */}
               {totalPages > 1 && (
-                <div className="flex items-center justify-between border-t border-slate-200 pt-6">
-                  <div className="text-sm text-slate-600">
+                <div className="flex items-center justify-between border-t border-slate-300 pt-6 dark:border-slate-800">
+                  <div className="text-sm text-slate-600 dark:text-slate-400">
                     Showing {startIndex + 1} to {Math.min(endIndex, filteredInspections.length)} of {filteredInspections.length} inspections
                   </div>
                   <div className="flex items-center gap-2">
@@ -399,7 +399,7 @@ const Dashboard = () => {
                       type="button"
                       onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                       disabled={currentPage === 1}
-                      className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed dark:border-slate-700 dark:text-slate-300"
                     >
                       <HiChevronLeft className="h-4 w-4" />
                       Previous
@@ -420,7 +420,7 @@ const Dashboard = () => {
                               className={`h-10 w-10 rounded-full text-sm font-semibold transition ${
                                 currentPage === page
                                   ? 'bg-primary text-primary-foreground'
-                                  : 'border border-slate-300 text-slate-700 hover:border-primary hover:text-primary'
+                                  : 'border border-slate-300 text-slate-700 hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-300'
                               }`}
                             >
                               {page}
@@ -428,7 +428,7 @@ const Dashboard = () => {
                           )
                         } else if (page === currentPage - 2 || page === currentPage + 2) {
                           return (
-                            <span key={page} className="px-2 text-slate-400">
+                            <span key={page} className="px-2 text-slate-400 dark:text-slate-500">
                               ...
                             </span>
                           )
@@ -440,7 +440,7 @@ const Dashboard = () => {
                       type="button"
                       onClick={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
                       disabled={currentPage === totalPages}
-                      className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed dark:border-slate-700 dark:text-slate-300"
                     >
                       Next
                       <HiChevronRight className="h-4 w-4" />

@@ -56,10 +56,10 @@ const defaultValues = {
 const checklistSections = new Set(Object.keys(checklist))
 
 const inputBaseClasses =
-  'h-12 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20'
+  'h-12 w-full rounded-xl border border-slate-300 bg-white px-4 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200 dark:focus:ring-primary/40'
 
 const textareaBaseClasses =
-  'min-h-[140px] w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20'
+  'min-h-[140px] w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200 dark:focus:ring-primary/40'
 
 const FormInput = ({
   name,
@@ -73,7 +73,7 @@ const FormInput = ({
   options,
 }) => (
   <label className="flex flex-col gap-1.5">
-    <span className="text-sm font-medium text-slate-700">{label}</span>
+    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
     <input
       id={name}
       type={type}
@@ -91,7 +91,7 @@ const FormInput = ({
 
 const FormTextarea = ({ name, label, register, error, placeholder, options }) => (
   <label className="flex flex-col gap-1.5">
-    <span className="text-sm font-medium text-slate-700">{label}</span>
+    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
     <textarea
       id={name}
       placeholder={placeholder}
@@ -180,10 +180,10 @@ const InspectionForm = () => {
 
   const mobileNavButtonClasses = (isActive) =>
     cn(
-      'inline-flex min-h-[50px] min-w-[9rem] snap-start items-center justify-center rounded-full border px-5 py-2.5 text-center text-sm font-semibold leading-snug transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
+      'inline-flex min-h-[50px] min-w-[9rem] shrink-0 items-center justify-center rounded-full border px-5 py-2.5 text-center text-sm font-semibold leading-snug transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
       isActive
         ? 'border-transparent bg-primary text-white shadow'
-        : 'border-slate-200 bg-white text-slate-600 hover:text-primary'
+        : 'border-slate-300 bg-white text-slate-600 shadow-sm hover:text-primary dark:border-slate-800 dark:bg-[#121212] dark:shadow-none dark:text-slate-400 dark:hover:text-primary'
     )
 
   const desktopNavButtonClasses = (isActive) =>
@@ -191,7 +191,7 @@ const InspectionForm = () => {
       'flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
       isActive
         ? 'border-transparent bg-primary text-white ring-1 ring-primary/40 shadow'
-        : 'border-slate-200 bg-white text-slate-600 hover:text-primary'
+        : 'border-slate-300 bg-white text-slate-600 shadow-sm hover:text-primary dark:border-slate-800 dark:bg-[#121212] dark:shadow-none dark:text-slate-400 dark:hover:text-primary'
     )
 
   const sectionList = useMemo(
@@ -261,30 +261,30 @@ const InspectionForm = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
-        <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
+        <h1 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white">
           {t('inspection.title')}
         </h1>
-        <p className="text-base text-slate-600">
+        <p className="text-base text-slate-600 dark:text-slate-400">
           {t('inspection.subtitle')}
         </p>
       </div>
 
       {submitSuccess && (
-        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm">
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm dark:border-emerald-800/50 dark:bg-emerald-950/30">
           <div className="flex items-start gap-3">
-            <HiOutlineCheckCircle className="h-6 w-6 shrink-0 text-emerald-600" />
+            <HiOutlineCheckCircle className="h-6 w-6 shrink-0 text-emerald-600 dark:text-emerald-400" />
             <div className="flex-1">
-              <h3 className="text-sm font-semibold text-emerald-900">
+              <h3 className="text-sm font-semibold text-emerald-900 dark:text-emerald-100">
                 {t('messages.success.inspectionCreated')}
               </h3>
-              <p className="mt-1 text-sm text-emerald-700">
+              <p className="mt-1 text-sm text-emerald-700 dark:text-emerald-300">
                 {t('messages.success.inspectionCreatedDescription')}
               </p>
             </div>
             <button
               type="button"
               onClick={() => setSubmitSuccess(false)}
-              className="shrink-0 rounded-full p-1 text-emerald-600 transition hover:bg-emerald-100"
+              className="shrink-0 rounded-full p-1 text-emerald-600 transition hover:bg-emerald-100 dark:text-emerald-400 dark:hover:bg-emerald-900/40"
               aria-label="Dismiss"
             >
               <HiOutlineXMark className="h-5 w-5" />
@@ -294,8 +294,8 @@ const InspectionForm = () => {
       )}
 
       <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[280px,1fr] lg:items-start">
-        <nav className="-mx-4 border-b border-slate-200/60 pb-4 lg:mx-0 lg:border-b-0 lg:pr-6">
-          <div className="flex items-center gap-3 overflow-x-auto px-4 lg:hidden snap-x snap-mandatory">
+        <nav className="-mx-4 border-b border-slate-300 pb-4 lg:mx-0 lg:border-b-0 lg:pr-6 dark:border-slate-800">
+          <div className="flex items-center gap-3 overflow-x-auto px-4 lg:hidden">
             {sectionList.map((section) => {
               const isActive = activeSection === section.id
               const isCompleted = isSectionCompleted(section.id)
@@ -340,7 +340,7 @@ const InspectionForm = () => {
                   </span>
                   <span className={cn(
                     'text-xs font-medium',
-                    isActive ? 'text-white/80' : 'text-slate-400'
+                    isActive ? 'text-white/80' : 'text-slate-400 dark:text-slate-500'
                   )}>
                     {checklistSections.has(section.id) && Array.isArray(watchAllFields?.checklist?.[section.id])
                       ? watchAllFields.checklist[section.id].length
@@ -462,7 +462,7 @@ const InspectionForm = () => {
 
               {section.id === 'checkupType' && (
                 <div className="mt-6">
-                  <p className="mb-4 text-sm text-slate-500">
+                  <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
                     {t('inspection.helperText.checkupType')}
                   </p>
                   <Controller
@@ -480,7 +480,7 @@ const InspectionForm = () => {
                             key={option.id}
                             value={option.id}
                             className={cn(
-                              'group flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-4 text-sm font-medium shadow-sm transition hover:border-primary',
+                              'group flex flex-col gap-2 rounded-2xl border border-slate-300 bg-white p-4 text-sm font-medium shadow-sm transition hover:border-primary dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200',
                               field.value === option.id &&
                                 'border-primary bg-primary/5 text-primary shadow-md shadow-primary/10'
                             )}
@@ -488,7 +488,7 @@ const InspectionForm = () => {
                             <span>{t(option.translationKey)}</span>
                             <span
                               className={cn(
-                                'inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 transition group-hover:border-primary',
+                                'inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 transition group-hover:border-primary dark:border-slate-600',
                                 field.value === option.id && 'border-primary bg-primary'
                               )}
                             >
@@ -543,7 +543,7 @@ const InspectionForm = () => {
                     placeholder={t('inspection.fields.notesPlaceholder')}
                   />
 
-                  <div className="space-y-3 rounded-2xl bg-slate-100 p-5 text-sm text-slate-600">
+                  <div className="space-y-3 rounded-2xl bg-slate-100 p-5 text-sm text-slate-600 dark:bg-[#121212] dark:text-slate-400">
                     {LEGAL_NOTICE_KEYS.map((key) => (
                       <p key={key}>{t(key)}</p>
                     ))}
@@ -554,7 +554,7 @@ const InspectionForm = () => {
             ) : null
           )}
 
-          <div className="flex flex-col gap-3 border-t border-slate-200 pt-6">
+          <div className="flex flex-col gap-3 border-t border-slate-300 pt-6 dark:border-slate-800">
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
               <button
                 type="submit"
@@ -565,7 +565,7 @@ const InspectionForm = () => {
               <button
                 type="button"
                 onClick={() => reset(defaultValues)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary/50 hover:text-primary"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary/50 hover:text-primary dark:border-slate-700 dark:text-slate-400"
               >
                 {t('inspection.actions.reset')}
               </button>

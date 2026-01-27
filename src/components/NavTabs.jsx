@@ -10,9 +10,9 @@ const navItems = [
 ]
 
 const resolvePath = (pathname) => {
-  if (!pathname || pathname === '/') return '/dashboard'
+  if (!pathname || pathname === '/') return '/inspection'
   const match = navItems.find((item) => pathname.startsWith(item.value))
-  return match ? match.value : '/dashboard'
+  return match ? match.value : '/inspection'
 }
 
 const NavTabs = ({ className }) => {
@@ -28,7 +28,7 @@ const NavTabs = ({ className }) => {
       onValueChange={(next) => navigate(next)}
       className={cn('w-full', className)}
     >
-      <Tabs.List className="inline-flex gap-2 rounded-full border border-slate-200 bg-white p-1 text-sm shadow-sm">
+      <Tabs.List className="inline-flex gap-2 rounded-full border border-slate-300 bg-white p-1 text-sm shadow-md dark:border-slate-800 dark:bg-[#121212] dark:shadow-none">
         {navItems.map((item) => {
           const isActive = value === item.value
 
@@ -37,10 +37,10 @@ const NavTabs = ({ className }) => {
               key={item.value}
               value={item.value}
               className={cn(
-                'min-w-[8rem] rounded-full px-5 py-2 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50',
+                'min-w-[8rem] rounded-full px-5 py-2 font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900',
                 isActive
                   ? 'bg-primary text-primary-foreground shadow'
-                  : 'text-slate-600 hover:text-primary'
+                  : 'text-slate-600 hover:text-primary dark:text-slate-400 dark:hover:text-primary'
               )}
             >
               {t(item.labelKey)}

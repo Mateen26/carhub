@@ -47,7 +47,7 @@ const CheckboxGroup = ({
             key={item.id}
             htmlFor={inputId}
             className={cn(
-              'group relative flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200/70 bg-white/90 p-4 text-sm shadow-sm transition hover:border-primary/60 hover:shadow-md',
+              'group relative flex cursor-pointer items-start gap-3 rounded-xl border border-slate-300 bg-white p-4 text-sm shadow-sm transition hover:border-primary/60 hover:shadow-md dark:border-slate-800 dark:bg-[#121212]',
               disabled && '!cursor-not-allowed opacity-60'
             )}
           >
@@ -58,7 +58,7 @@ const CheckboxGroup = ({
               checked={checked}
               onCheckedChange={() => handleToggle(item.id)}
               className={cn(
-                'mt-1 flex h-5 w-5 items-center justify-center rounded-md border border-slate-300 bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-white'
+                'mt-1 flex h-5 w-5 items-center justify-center rounded-md border border-slate-300 bg-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 data-[state=checked]:border-primary data-[state=checked]:bg-primary data-[state=checked]:text-white dark:border-slate-600 dark:bg-slate-800 dark:data-[state=checked]:bg-primary'
               )}
             >
               <CheckboxPrimitive.Indicator className="flex items-center justify-center text-current">
@@ -66,9 +66,9 @@ const CheckboxGroup = ({
               </CheckboxPrimitive.Indicator>
             </CheckboxPrimitive.Root>
             <div className="flex flex-col gap-1">
-              <span className="font-medium text-slate-900">{item.label}</span>
+              <span className="font-medium text-slate-900 dark:text-slate-200">{item.label}</span>
               {item.description ? (
-                <span className="text-xs text-slate-500">{item.description}</span>
+                <span className="text-xs text-slate-500 dark:text-slate-400">{item.description}</span>
               ) : null}
             </div>
           </LabelPrimitive.Root>

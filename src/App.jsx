@@ -7,11 +7,11 @@ import InspectionForm from './pages/InspectionForm'
 const App = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
-      <Route index element={<Navigate to="/dashboard" replace />} />
+      <Route index element={<Navigate to="/inspection" replace />} />
       <Route path="dashboard" element={<Dashboard />} />
       <Route path="inspection" element={<InspectionForm />} />
     </Route>
-    <Route path="*" element={<Navigate to="/dashboard" replace />} />
+    <Route path="*" element={<Navigate to="/inspection" replace />} />
   </Routes>
 )
 
