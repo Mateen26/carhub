@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { HiCheck } from 'react-icons/hi2'
+import { HiCheck, HiOutlineCheckCircle, HiOutlineXMark } from 'react-icons/hi2'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 
 import Card from '../components/Card'
@@ -124,11 +124,13 @@ const InspectionForm = () => {
   const [submittedData, setSubmittedData] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
+  const [submitSuccess, setSubmitSuccess] = useState(false)
   const contentRef = useRef(null)
 
   const onSubmit = (values) => {
     setSubmittedData(values)
     setSubmitError(null)
+    setSubmitSuccess(false)
     setIsSummaryOpen(true)
   }
 
@@ -137,6 +139,7 @@ const InspectionForm = () => {
 
     setIsSubmitting(true)
     setSubmitError(null)
+    setSubmitSuccess(false)
 
     try {
       // Transform form data to API format
@@ -145,10 +148,17 @@ const InspectionForm = () => {
       // Submit to API
       await createInspection(apiPayload)
       
-      // Success - close modal and reset form
+      // Success - close modal, reset form, and show success message
       setIsSummaryOpen(false)
       reset(defaultValues)
       setSubmittedData(null)
+      setActiveSection(SECTION_DEFINITIONS[0].id) // Reset to first section
+      setSubmitSuccess(true)
+      
+      // Auto-dismiss success message after 5 seconds
+      setTimeout(() => {
+        setSubmitSuccess(false)
+      }, 5000)
     } catch (error) {
       // Handle error
       setSubmitError(error.message || 'Failed to submit inspection. Please try again.')
@@ -258,6 +268,30 @@ const InspectionForm = () => {
           {t('inspection.subtitle')}
         </p>
       </div>
+
+      {submitSuccess && (
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm">
+          <div className="flex items-start gap-3">
+            <HiOutlineCheckCircle className="h-6 w-6 shrink-0 text-emerald-600" />
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-emerald-900">
+                {t('messages.success.inspectionCreated')}
+              </h3>
+              <p className="mt-1 text-sm text-emerald-700">
+                {t('messages.success.inspectionCreatedDescription')}
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setSubmitSuccess(false)}
+              className="shrink-0 rounded-full p-1 text-emerald-600 transition hover:bg-emerald-100"
+              aria-label="Dismiss"
+            >
+              <HiOutlineXMark className="h-5 w-5" />
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="flex flex-col gap-8 lg:grid lg:grid-cols-[280px,1fr] lg:items-start">
         <nav className="-mx-4 border-b border-slate-200/60 pb-4 lg:mx-0 lg:border-b-0 lg:pr-6">
@@ -546,6 +580,7 @@ const InspectionForm = () => {
           setIsSummaryOpen(open)
           if (!open) {
             setSubmitError(null)
+            setSubmitSuccess(false)
           }
         }}
         data={submittedData}

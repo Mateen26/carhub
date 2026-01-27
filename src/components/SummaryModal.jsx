@@ -59,8 +59,8 @@ const SummaryModal = ({
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm print:hidden" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 w-[90vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl print:static print:m-0 print:w-auto print:max-w-none print:translate-x-0 print:translate-y-0 print:rounded-none print:border-0 print:bg-white print:p-0 print:shadow-none">
-          <div className="flex items-start justify-between gap-4">
+        <Dialog.Content className="fixed left-1/2 top-1/2 z-50 flex max-h-[90vh] w-[90vw] max-w-3xl -translate-x-1/2 -translate-y-1/2 flex-col rounded-3xl border border-slate-200 bg-white shadow-2xl print:static print:m-0 print:w-auto print:max-h-none print:max-w-none print:translate-x-0 print:translate-y-0 print:rounded-none print:border-0 print:bg-white print:shadow-none">
+          <div className="flex shrink-0 items-start justify-between gap-4 border-b border-slate-200 p-6 print:border-b-0">
             <div>
               <Dialog.Title className="text-2xl font-semibold text-slate-900">
                 {t('summary.title')}
@@ -74,7 +74,8 @@ const SummaryModal = ({
             </Dialog.Close>
           </div>
 
-          <div className="mt-6 grid gap-6 print:mt-4">
+          <div className="flex-1 overflow-y-auto px-6 py-6 print:overflow-visible print:p-0">
+            <div className="grid gap-6 print:mt-4">
             <section className="rounded-2xl border border-slate-200 bg-slate-50 p-5 print:border print:bg-white">
               <h3 className="text-lg font-semibold text-slate-900">
                 {t('summary.customerDetails')}
@@ -141,15 +142,17 @@ const SummaryModal = ({
                 {data.notes?.length ? data.notes : '—'}
               </p>
             </section>
+            </div>
           </div>
 
-          {submitError && (
-            <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 print:hidden">
-              <p className="text-sm font-medium text-red-800">{submitError}</p>
-            </div>
-          )}
+          <div className="shrink-0 border-t border-slate-200 p-6 print:border-t-0">
+            {submitError && (
+              <div className="mb-4 rounded-xl border border-red-200 bg-red-50 p-4 print:hidden">
+                <p className="text-sm font-medium text-red-800">{submitError}</p>
+              </div>
+            )}
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end print:hidden">
+            <div className="flex flex-col gap-3 sm:flex-row sm:justify-end print:hidden">
             <button
               type="button"
               onClick={onPrint}
@@ -196,6 +199,7 @@ const SummaryModal = ({
                 </>
               )}
             </button>
+            </div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

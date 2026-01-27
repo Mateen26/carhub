@@ -11,7 +11,8 @@
       "confirmSave": "تأكيد وحفظ",
       "print": "طباعة / تصدير",
       "close": "إغلاق",
-      "cancel": "إلغاء"
+      "cancel": "إلغاء",
+      "submitting": "جاري الإرسال..."
     }
   },
   "language": {
@@ -104,6 +105,12 @@
     "invalidMobile": "يرجى إدخال رقم جوال صحيح",
     "minLength": "لم يتم استيفاء الحد الأدنى للطول",
     "selectOne": "يرجى اختيار خيار واحد"
+  },
+  "messages": {
+    "success": {
+      "inspectionCreated": "تم إنشاء الفحص بنجاح!",
+      "inspectionCreatedDescription": "تم حفظ الفحص وتم إعادة تعيين النموذج."
+    }
   }
 }
 

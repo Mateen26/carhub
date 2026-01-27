@@ -11,7 +11,8 @@
       "confirmSave": "Confirm & Save",
       "print": "Print / Export",
       "close": "Close",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "submitting": "Submitting..."
     }
   },
   "language": {
@@ -104,6 +105,12 @@
     "invalidMobile": "Please enter a valid mobile number",
     "minLength": "Minimum length not met",
     "selectOne": "Please select one option"
+  },
+  "messages": {
+    "success": {
+      "inspectionCreated": "Inspection created successfully!",
+      "inspectionCreatedDescription": "The inspection has been saved and the form has been reset."
+    }
   }
 }
 
