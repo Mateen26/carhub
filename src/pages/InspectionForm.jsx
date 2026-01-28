@@ -308,8 +308,8 @@ const InspectionForm = () => {
                 >
                   <span className="flex items-center gap-2">
                     {isCompleted && (
-                      <span className="inline-flex h-5 w-5 items-center justify-center rounded  bg-[#6f6767]">
-                        <HiCheck className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded  bg-[#ffffff]">
+                        <HiCheck className="h-3.5 w-3.5 text-black" aria-hidden="true" />
                       </span>
                     )}
                     {section.label}
@@ -332,8 +332,8 @@ const InspectionForm = () => {
                 >
                   <span className="flex items-center gap-2">
                     {isCompleted && (
-                      <span className="inline-flex h-5 w-5 items-center justify-center rounded  bg-[#6f6767]">
-                        <HiCheck className="h-3.5 w-3.5 text-white" aria-hidden="true" />
+                      <span className="inline-flex h-5 w-5 items-center justify-center rounded  bg-[#ffffff]">
+                        <HiCheck className="h-3.5 w-3.5 text-black" aria-hidden="true" />
                       </span>
                     )}
                     {section.label}

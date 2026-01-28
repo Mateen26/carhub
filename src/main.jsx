@@ -12,7 +12,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <LanguageProvider>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="carhub-ui-theme">
           <App />
         </ThemeProvider>
       </LanguageProvider>
