@@ -9,6 +9,9 @@
     "actions": {
       "newInspection": "New Inspection",
       "confirmSave": "Confirm & Save",
+      "downloadPdf": "Download PDF",
+      "downloadPdfEn": "PDF English",
+      "downloadPdfAr": "PDF Arabic",
       "print": "Print / Export",
       "close": "Close",
       "cancel": "Cancel",
@@ -70,9 +73,12 @@
       "notesPlaceholder": "Add any additional observations or notes here..."
     },
     "checkupTypes": {
+      "overall": "Overall check",
       "engine": "Engine",
-      "gearbox": "Gearbox (Transmission)",
-      "both": "Engine & Gearbox"
+      "transmission": "Transmission",
+      "underchassis": "Underchassis",
+      "body": "Body",
+      "incomplete": "Incomplete"
     },
     "helperText": {
       "checkupType": "Select one option"
@@ -93,7 +99,13 @@
     "selectedIssues": "Selected Issues",
     "noIssues": "No issues selected",
     "notes": "Notes",
-    "printHint": "Use your browser's print dialog to export or print this summary."
+    "downloadHint": "Download a PDF copy of this summary below.",
+    "printHint": "Use your browser's print dialog to export or print this summary.",
+    "dateLabel": "Date",
+    "signatureLabel": "Signature",
+    "vehicleInfo": "Vehicle Information",
+    "inspectionDetails": "Inspection Details",
+    "reportDate": "Report Date"
   },
   "statuses": {
     "completed": "Completed",

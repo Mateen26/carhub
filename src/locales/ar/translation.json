@@ -9,6 +9,9 @@
     "actions": {
       "newInspection": "فحص جديد",
       "confirmSave": "تأكيد وحفظ",
+      "downloadPdf": "تحميل PDF",
+      "downloadPdfEn": "PDF إنجليزي",
+      "downloadPdfAr": "PDF عربي",
       "print": "طباعة / تصدير",
       "close": "إغلاق",
       "cancel": "إلغاء",
@@ -70,9 +73,12 @@
       "notesPlaceholder": "أضف أي ملاحظات إضافية هنا..."
     },
     "checkupTypes": {
+      "overall": "فحص شامل",
       "engine": "ماكينة",
-      "gearbox": "قير (ناقل الحركة)",
-      "both": "ماكينة وقير"
+      "transmission": "قير (ناقل الحركة)",
+      "underchassis": "أسفل المركبة",
+      "body": "الهيكل",
+      "incomplete": "غير مكتمل"
     },
     "helperText": {
       "checkupType": "اختر خياراً واحداً"
@@ -93,7 +99,13 @@
     "selectedIssues": "الملاحظات المحددة",
     "noIssues": "لا توجد ملاحظات محددة",
     "notes": "الملاحظات",
-    "printHint": "استخدم نافذة الطباعة في المتصفح لطباعة أو تصدير هذا الملخص."
+    "downloadHint": "حمل نسخة PDF من هذا الملخص أدناه.",
+    "printHint": "استخدم نافذة الطباعة في المتصفح لطباعة أو تصدير هذا الملخص.",
+    "dateLabel": "التاريخ",
+    "signatureLabel": "التوقيع",
+    "vehicleInfo": "بيانات المركبة",
+    "inspectionDetails": "تفاصيل الفحص",
+    "reportDate": "تاريخ التقرير"
   },
   "statuses": {
     "completed": "مكتمل",

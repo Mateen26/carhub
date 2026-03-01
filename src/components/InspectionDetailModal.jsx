@@ -1,9 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { HiOutlineXMark, HiOutlinePrinter, HiOutlineCalendar, HiOutlinePhone, HiOutlineUser } from 'react-icons/hi2'
+import { HiOutlineXMark, HiOutlineArrowDownTray, HiOutlineCalendar, HiOutlinePhone, HiOutlineUser } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
 
 import { CHECKUP_TYPES } from '../config/constants'
 import { checklist } from '../data/checklist'
+import { generateDetailPdf } from '../utils/generateInspectionPdf'
 
 /**
  * Maps API section names back to form section names
@@ -254,11 +255,19 @@ const InspectionDetailModal = ({ open, onOpenChange, inspectionData }) => {
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end print:hidden">
               <button
                 type="button"
-                onClick={() => window.print()}
+                onClick={() => generateDetailPdf(inspectionData, { t: i18n.getFixedT('en'), languageKey: 'en', locale: 'en-US' })}
                 className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-400"
               >
-                <HiOutlinePrinter className="h-5 w-5" />
-                {t('app.actions.print')}
+                <HiOutlineArrowDownTray className="h-5 w-5" />
+                {t('app.actions.downloadPdfEn')}
+              </button>
+              <button
+                type="button"
+                onClick={() => generateDetailPdf(inspectionData, { t: i18n.getFixedT('ar'), languageKey: 'ar', locale: 'ar-SA' })}
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-400"
+              >
+                <HiOutlineArrowDownTray className="h-5 w-5" />
+                {t('app.actions.downloadPdfAr')}
               </button>
             </div>
           </div>

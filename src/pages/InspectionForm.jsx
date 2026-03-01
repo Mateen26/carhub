@@ -48,7 +48,7 @@ const defaultValues = {
   date: '',
   crNumber: CENTER_INFO.crNumber,
   vatNumber: CENTER_INFO.vatNumber,
-  checkupType: 'engine',
+  checkupType: 'overall',
   checklist: createChecklistDefaults(),
   notes: '',
 }
@@ -473,22 +473,21 @@ const InspectionForm = () => {
                       <RadioGroup.Root
                         value={field.value}
                         onValueChange={field.onChange}
-                        className="grid gap-4 sm:grid-cols-3"
+                        className="flex flex-col gap-2 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-4"
                       >
                         {CHECKUP_TYPES.map((option) => (
                           <RadioGroup.Item
                             key={option.id}
                             value={option.id}
                             className={cn(
-                              'group flex flex-col gap-2 rounded-2xl border border-slate-300 bg-white p-4 text-sm font-medium shadow-sm transition hover:border-primary dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200',
+                              'group flex min-h-[44px] w-full flex-row items-center gap-3 rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-medium shadow-sm transition hover:border-primary dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200 sm:rounded-2xl sm:p-4',
                               field.value === option.id &&
                                 'border-primary bg-primary/5 text-primary shadow-md shadow-primary/10'
                             )}
                           >
-                            <span>{t(option.translationKey)}</span>
                             <span
                               className={cn(
-                                'inline-flex h-5 w-5 items-center justify-center rounded-full border border-slate-300 transition group-hover:border-primary dark:border-slate-600',
+                                'inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-slate-300 transition group-hover:border-primary dark:border-slate-600',
                                 field.value === option.id && 'border-primary bg-primary'
                               )}
                             >
@@ -499,6 +498,7 @@ const InspectionForm = () => {
                                 )}
                               />
                             </span>
+                            <span className="flex-1 text-left">{t(option.translationKey)}</span>
                           </RadioGroup.Item>
                         ))}
                       </RadioGroup.Root>
@@ -585,7 +585,7 @@ const InspectionForm = () => {
         }}
         data={submittedData}
         onConfirm={handleConfirm}
-        onPrint={() => window.print()}
+        onDownloadPdf={() => {}}
         isSubmitting={isSubmitting}
         submitError={submitError}
       />

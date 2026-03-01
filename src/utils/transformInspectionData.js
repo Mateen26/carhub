@@ -71,7 +71,7 @@ export const transformInspectionData = (formData) => {
       vatNumber: formData.vatNumber || '',
     },
     inspection: {
-      inspectionType: formData.checkupType || 'engine',
+      inspectionType: formData.checkupType || 'overall',
       odometerReading: typeof formData.odometer === 'number' 
         ? formData.odometer 
         : parseInt(formData.odometer, 10) || 0,

@@ -58,17 +58,11 @@ export const LEGAL_NOTICE_KEYS = [
 ]
 
 export const CHECKUP_TYPES = [
-  {
-    id: 'engine',
-    translationKey: 'inspection.checkupTypes.engine',
-  },
-  {
-    id: 'gearbox',
-    translationKey: 'inspection.checkupTypes.gearbox',
-  },
-  {
-    id: 'both',
-    translationKey: 'inspection.checkupTypes.both',
-  },
+  { id: 'overall', translationKey: 'inspection.checkupTypes.overall' },
+  { id: 'engine', translationKey: 'inspection.checkupTypes.engine' },
+  { id: 'transmission', translationKey: 'inspection.checkupTypes.transmission' },
+  { id: 'underchassis', translationKey: 'inspection.checkupTypes.underchassis' },
+  { id: 'body', translationKey: 'inspection.checkupTypes.body' },
+  { id: 'incomplete', translationKey: 'inspection.checkupTypes.incomplete' },
 ]
 

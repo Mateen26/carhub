@@ -1,16 +1,17 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { HiOutlinePrinter, HiOutlineCheck, HiOutlineXMark } from 'react-icons/hi2'
+import { HiOutlineArrowDownTray, HiOutlineCheck, HiOutlineXMark } from 'react-icons/hi2'
 import { useTranslation } from 'react-i18next'
 
 import { CHECKUP_TYPES } from '../config/constants'
 import { checklist } from '../data/checklist'
+import { generateSummaryPdf } from '../utils/generateInspectionPdf'
 
 const SummaryModal = ({ 
   open, 
   onOpenChange, 
   data, 
   onConfirm, 
-  onPrint, 
+  onDownloadPdf, 
   isSubmitting = false,
   submitError = null 
 }) => {
@@ -66,7 +67,7 @@ const SummaryModal = ({
                 {t('summary.title')}
               </Dialog.Title>
               <Dialog.Description className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                {t('summary.printHint')}
+                {t('summary.downloadHint')}
               </Dialog.Description>
             </div>
             <Dialog.Close className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:text-primary print:hidden dark:border-slate-700 dark:text-slate-400">
@@ -155,12 +156,27 @@ const SummaryModal = ({
             <div className="flex flex-col gap-3 sm:flex-row sm:justify-end print:hidden">
             <button
               type="button"
-              onClick={onPrint}
+              onClick={async () => {
+                await generateSummaryPdf(data, { t: i18n.getFixedT('en'), languageKey: 'en' })
+                onDownloadPdf?.()
+              }}
               disabled={isSubmitting}
               className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed dark:border-slate-700 dark:text-slate-400"
             >
-              <HiOutlinePrinter className="h-5 w-5" />
-              {t('app.actions.print')}
+              <HiOutlineArrowDownTray className="h-5 w-5" />
+              {t('app.actions.downloadPdfEn')}
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                await generateSummaryPdf(data, { t: i18n.getFixedT('ar'), languageKey: 'ar' })
+                onDownloadPdf?.()
+              }}
+              disabled={isSubmitting}
+              className="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-600 transition hover:border-primary hover:text-primary disabled:opacity-50 disabled:cursor-not-allowed dark:border-slate-700 dark:text-slate-400"
+            >
+              <HiOutlineArrowDownTray className="h-5 w-5" />
+              {t('app.actions.downloadPdfAr')}
             </button>
             <button
               type="button"
