@@ -45,7 +45,7 @@ const Header = ({ className }) => {
             <LanguageSwitcher />
           </div>
         </div>
-        {/* <NavTabs /> */}
+        <NavTabs />
       </div>
     </header>
   )
