@@ -3,6 +3,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { HiCheck, HiOutlineCheckCircle, HiOutlineXMark } from 'react-icons/hi2'
 import * as RadioGroup from '@radix-ui/react-radio-group'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 
 import Card from '../components/Card'
 import SectionTitle from '../components/SectionTitle'
@@ -36,6 +38,11 @@ const createChecklistDefaults = () =>
     return acc
   }, {})
 
+const getTodayStr = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
 const defaultValues = {
   clientName: '',
   mobileNumber: '',
@@ -45,7 +52,7 @@ const defaultValues = {
   plateNumber: '',
   vin: '',
   odometer: '',
-  date: '',
+  date: getTodayStr(),
   crNumber: CENTER_INFO.crNumber,
   vatNumber: CENTER_INFO.vatNumber,
   checkupType: 'overall',
@@ -73,7 +80,10 @@ const FormInput = ({
   options,
 }) => (
   <label className="flex flex-col gap-1.5">
-    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{label}</span>
+    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+      {label}
+      {options?.required && <span className="text-red-500"> *</span>}
+    </span>
     <input
       id={name}
       type={type}
@@ -434,13 +444,45 @@ const InspectionForm = () => {
                     />
                   </div>
                   <div className="grid gap-4 md:grid-cols-2">
-                    <FormInput
+                    <Controller
                       name="date"
-                      label={t('inspection.fields.date')}
-                      register={register}
-                      error={errors.date}
-                      options={{ required: validationMessages.required }}
-                      type="date"
+                      control={control}
+                      rules={{ required: validationMessages.required }}
+                      render={({ field }) => {
+                        const selected = field.value ? new Date(field.value + 'T00:00:00') : null
+                        return (
+                          <label className="flex flex-col gap-1.5">
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                              {t('inspection.fields.date')}
+                              <span className="text-red-500"> *</span>
+                            </span>
+                            <DatePicker
+                              selected={selected}
+                              onChange={(date) => {
+                                if (date) {
+                                  const y = date.getFullYear()
+                                  const m = String(date.getMonth() + 1).padStart(2, '0')
+                                  const d = String(date.getDate()).padStart(2, '0')
+                                  field.onChange(`${y}-${m}-${d}`)
+                                } else {
+                                  field.onChange('')
+                                }
+                              }}
+                              minDate={new Date()}
+                              dateFormat="yyyy-MM-dd"
+                              placeholderText={t('inspection.fields.date')}
+                              className={inputBaseClasses}
+                              calendarClassName="carhub-datepicker"
+                              wrapperClassName="w-full"
+                              showPopperArrow={false}
+                              autoComplete="off"
+                            />
+                            {errors.date && (
+                              <span className="text-xs font-medium text-red-500">{errors.date.message}</span>
+                            )}
+                          </label>
+                        )
+                      }}
                     />
                     <FormInput
                       name="crNumber"
