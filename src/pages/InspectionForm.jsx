@@ -68,6 +68,26 @@ const inputBaseClasses =
 const textareaBaseClasses =
   'min-h-[140px] w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 shadow-sm transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 dark:border-slate-800 dark:bg-[#121212] dark:text-slate-200 dark:focus:ring-primary/40'
 
+const blockNonNumeric = (e) => {
+  if (
+    e.key.length === 1 &&
+    !/[0-9+\-() ]/.test(e.key) &&
+    !e.ctrlKey && !e.metaKey
+  ) {
+    e.preventDefault()
+  }
+}
+
+const blockNonDigit = (e) => {
+  if (
+    e.key.length === 1 &&
+    !/[0-9]/.test(e.key) &&
+    !e.ctrlKey && !e.metaKey
+  ) {
+    e.preventDefault()
+  }
+}
+
 const FormInput = ({
   name,
   label,
@@ -78,6 +98,7 @@ const FormInput = ({
   autoComplete,
   inputMode,
   options,
+  onKeyDown,
 }) => (
   <label className="flex flex-col gap-1.5">
     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
@@ -90,6 +111,7 @@ const FormInput = ({
       placeholder={placeholder}
       autoComplete={autoComplete}
       inputMode={inputMode}
+      onKeyDown={onKeyDown}
       {...register(name, options)}
       className={inputBaseClasses}
     />
@@ -384,8 +406,9 @@ const InspectionForm = () => {
                       register={register}
                       error={errors.mobileNumber}
                       type="tel"
-                      inputMode="tel"
+                      inputMode="numeric"
                       autoComplete="tel"
+                      onKeyDown={blockNonNumeric}
                       options={{
                         required: validationMessages.required,
                         validate: (value) => {
@@ -410,7 +433,10 @@ const InspectionForm = () => {
                       label={t('inspection.fields.model')}
                       register={register}
                       error={errors.model}
+                      type="text"
+                      inputMode="numeric"
                       autoComplete="off"
+                      onKeyDown={blockNonDigit}
                     />
                     <FormInput
                       name="color"
@@ -438,8 +464,9 @@ const InspectionForm = () => {
                       label={t('inspection.fields.odometer')}
                       register={register}
                       error={errors.odometer}
-                      type="number"
+                      type="text"
                       inputMode="numeric"
+                      onKeyDown={blockNonDigit}
                       options={{ valueAsNumber: true, min: { value: 0 } }}
                     />
                   </div>
