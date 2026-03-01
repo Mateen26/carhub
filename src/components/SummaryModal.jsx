@@ -70,7 +70,7 @@ const SummaryModal = ({
                 {t('summary.downloadHint')}
               </Dialog.Description>
             </div>
-            <Dialog.Close className="rounded-full border border-slate-200 p-2 text-slate-500 transition hover:text-primary print:hidden dark:border-slate-700 dark:text-slate-400">
+            <Dialog.Close className="rounded-full border-1.5 border-slate-200 p-2 text-slate-500 transition hover:text-primary print:hidden dark:border-slate-700 dark:text-slate-400">
               <HiOutlineXMark className="h-5 w-5" />
             </Dialog.Close>
           </div>
